@@ -5,8 +5,8 @@ import './globals.css';
 import { SiteHeader } from '@/components/site-header';
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'AssetAlign',
+  description: 'AssetAlign',
 };
 
 export default function RootLayout({

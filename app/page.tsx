@@ -1,4 +1,3 @@
-import { SiteHeader } from '@/components/site-header';
 import { FeatureCard } from '@/components/feature-card';
 import Link from 'next/link';
 import Image from 'next/image';
