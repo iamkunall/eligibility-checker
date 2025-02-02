@@ -1,33 +1,30 @@
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useRouter } from "next/navigation"
-import { type FrameworkFormData, frameworkSchema } from "@/types/framework"
-import { useFrameworkStore } from "@/store/framework-store"
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type FrameworkFormData, frameworkSchema } from '@/types/framework';
+import { useFrameworkStore } from '@/store/framework-store';
 
 export function useFrameworkForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const router = useRouter()
-  const addFramework = useFrameworkStore((state) => state.addFramework)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const addFramework = useFrameworkStore((state) => state.addFramework);
 
   const form = useForm<FrameworkFormData>({
     resolver: zodResolver(frameworkSchema),
     defaultValues: {
-      name: "",
-      company: "",
-      remarks: "",
+      name: '',
+      company: '',
+      remarks: '',
     },
-  })
+  });
 
   async function onSubmit(data: FrameworkFormData) {
     try {
-      setIsSubmitting(true)
-      addFramework(data)
-      router.push("/assessment/framework-created")
+      setIsSubmitting(true);
+      addFramework(data);
     } catch (error) {
-      console.error("Error submitting framework:", error)
+      console.error('Error submitting framework:', error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
@@ -35,6 +32,5 @@ export function useFrameworkForm() {
     form,
     isSubmitting,
     onSubmit,
-  }
+  };
 }
-
