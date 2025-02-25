@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import useAxiosPost from '@/hooks/useAxiosPost';
 
+import useAxiosPost from '@/hooks/useAxiosPost';
+import useAuthStore from '@/store/auth-store';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const loginSchema = z.object({
@@ -31,14 +32,13 @@ export default function LoginForm() {
     },
   });
   const { data, error, isLoading, execute }: any = useAxiosPost('auth/login');
+  const { token, user, login }: any = useAuthStore();
 
   const onSubmit = async (data: LoginFormValues) => {
-    const res = await execute({
+    await execute({
       email: data.email,
       password: data.password,
     });
-    // Handle form submission
-    console.log('res', res);
   };
 
   useEffect(() => {
@@ -49,13 +49,19 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (data) {
+      // Handle successful response
       console.log('data', data);
+      login(data);
     }
   }, [data]);
 
   const rememberMe = watch('rememberMe');
 
-  console.log('isLoading', isLoading);
+  console.log('isLoading', {
+    isLoading,
+    token,
+    user,
+  });
 
   return (
     <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#ace5ea] to-[#dee9b5] p-8 mx-16">
