@@ -1,16 +1,8 @@
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
-import { Mail, Lock, User2 } from 'lucide-react';
-import { SiteHeader } from '@/components/site-header';
-import { Checkbox } from '@/components/ui/checkbox';
+import { User2 } from 'lucide-react';
 
 import LoginForm from '@/components/forms/LoginForm';
 
 export default function LoginPage() {
-  const [rememberMe, setRememberMe] = useState(false);
-
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">

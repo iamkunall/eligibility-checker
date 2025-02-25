@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Mail, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import useAxiosPost from '@/hooks/useAxiosPost';
 
 import { Checkbox } from '@/components/ui/checkbox';
 
@@ -29,13 +30,32 @@ export default function LoginForm() {
       rememberMe: false,
     },
   });
+  const { data, error, isLoading, execute }: any = useAxiosPost('auth/login');
 
   const onSubmit = async (data: LoginFormValues) => {
+    const res = await execute({
+      email: data.email,
+      password: data.password,
+    });
     // Handle form submission
-    console.log(data);
+    console.log('res', res);
   };
 
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (data) {
+      console.log('data', data);
+    }
+  }, [data]);
+
   const rememberMe = watch('rememberMe');
+
+  console.log('isLoading', isLoading);
 
   return (
     <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#ace5ea] to-[#dee9b5] p-8 mx-16">
