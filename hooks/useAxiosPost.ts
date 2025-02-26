@@ -4,7 +4,7 @@ import axios from 'axios';
 const useAxiosPost = (url: string) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const execute = async (inputData: any) => {
     setIsLoading(true);
