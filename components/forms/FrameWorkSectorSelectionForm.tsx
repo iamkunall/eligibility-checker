@@ -7,7 +7,9 @@ import { Button } from '@/components/ui/button';
 import { useSectorForm } from '@/hooks/use-sector-form';
 
 import { SectorCard } from '../sector-card';
-import SectorReviewCard from '../sector-review-card';
+// import SectorReviewCard from '../sector-review-card';
+
+import FrameworkEntriesTable from '@/components/framework-entries-table';
 
 export default function FrameWorkSectorSelectionForm() {
   const { form, overview, onSubmit } = useSectorForm();
@@ -23,7 +25,7 @@ export default function FrameWorkSectorSelectionForm() {
         <SectorCard setNumber={4} />
         <SectorCard setNumber={5} isActive />
       </div>
-      <div className="grid gap-8 lg:grid-cols-2 mt-12">
+      {/* <div className="grid gap-8 lg:grid-cols-2 mt-12">
         <div className="space-y-8">
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-asset-dark">Set 5</h3>
@@ -205,63 +207,6 @@ export default function FrameWorkSectorSelectionForm() {
             <div className="space-y-6">
               <div className="space-y-4">
                 <Label className="text-lg font-medium text-asset-dark">
-                  Add your Project Specifics{' '}
-                  <span className="ml-2 text-sm text-asset-medium">
-                    (multiple values are accepted)
-                  </span>
-                </Label>
-                <RadioGroup
-                  onValueChange={(value) => {
-                    form.setValue('subsector', value);
-                    setShowCustomSubsector(value === 'custom');
-                  }}
-                  className="space-y-3"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="custom" id="subsector-custom" />
-                    <Input
-                      placeholder="Custom Project type 1"
-                      className={`border-asset-light-blue ${
-                        !showCustomSubsector && 'opacity-50'
-                      }`}
-                      disabled={!showCustomSubsector}
-                      {...form.register('customSubsector')}
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="custom" id="subsector-custom" />
-                    <Input
-                      placeholder="Custom Project type 2"
-                      className={`border-asset-light-blue ${
-                        !showCustomSubsector && 'opacity-50'
-                      }`}
-                      disabled={!showCustomSubsector}
-                      {...form.register('customSubsector')}
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2 pl-6">
-                    <Input
-                      placeholder="Fill Details here"
-                      className={`border-asset-light-blue ${
-                        !showCustomSubsector && 'opacity-50'
-                      }`}
-                      disabled={!showCustomSubsector}
-                    />
-                  </div>
-                </RadioGroup>
-              </div>
-              <Button
-                variant="outline"
-                className="bg-asset-mint hover:bg-asset-mint/90"
-                onClick={() => form.handleSubmit(onSubmit)()}
-              >
-                Add to Set
-              </Button>
-            </div>
-
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <Label className="text-lg font-medium text-asset-dark">
                   Add your eligibility criteria to be reviewed by sustainability
                   specialist
                   <span className="ml-2 text-sm text-asset-medium">
@@ -394,7 +339,8 @@ export default function FrameWorkSectorSelectionForm() {
           </div>
         </div>
         <SectorReviewCard />
-      </div>
+      </div> */}
+      <FrameworkEntriesTable />
     </div>
   );
 }
