@@ -14,6 +14,7 @@ interface SectorState {
     projectSpecifics: string;
     eligibilityCriteria: string;
     dataPoints: string;
+    isCustomField?: boolean;
   };
   addSector: (sector: SectorFormData) => void;
   updateOverview: (overview: Partial<SectorState['overview']>) => void;

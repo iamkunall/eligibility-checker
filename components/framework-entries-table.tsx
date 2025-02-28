@@ -57,6 +57,7 @@ export default function FrameworkEntriesTable() {
     projectType: '',
     projectSpecifics: '',
     dataPoints: '',
+    isCustomField: true,
   });
 
   const handleAddEntry = () => {
@@ -67,6 +68,7 @@ export default function FrameworkEntriesTable() {
       projectType: '',
       projectSpecifics: '',
       dataPoints: '',
+      isCustomField: true,
     });
     setIsAddingEntry(false);
   };
@@ -93,8 +95,6 @@ export default function FrameworkEntriesTable() {
       });
     }
   }, [frameworkData]);
-
-  console.log('selectedEntries', selectedEntries);
 
   return (
     <div>

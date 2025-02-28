@@ -5,4 +5,5 @@ export interface FrameworkEntry {
   projectType: string;
   projectSpecifics: string;
   dataPoints: string;
+  isCustomField?: boolean;
 }
