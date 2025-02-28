@@ -21,6 +21,7 @@ interface SectorState {
   setActiveSector: (sectorNumber: number) => void;
   addFrameworkEntry: (entry: Omit<FrameworkEntry, 'id'>) => void;
   removeFrameworkEntry: (id: string) => void;
+  resetFrameworkEntries: () => void;
 }
 
 // Initial framework entries
@@ -61,4 +62,6 @@ export const useSectorStore = create<SectorState>()((set) => ({
         (entry) => entry.id !== id,
       ),
     })),
+  resetFrameworkEntries: () =>
+    set({ frameworkEntries: initialFrameworkEntries }),
 }));

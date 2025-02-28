@@ -41,19 +41,27 @@ const fetcher = ({ url, args }: any) =>
     return await r.json();
   });
 
-export default function FrameworkEntriesTable() {
+export default function FrameworkUpdateEntriesTable({ id }: any) {
   const router = useRouter();
   const { frameworkEntries, addFrameworkEntry, resetFrameworkEntries } =
     useSectorStore();
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [selectedEntries, setSelectedEntries] = useState<FrameworkEntry[]>([]);
   const { data, error, isLoading, execute }: any =
-    useAxiosPost('/createFramework');
+    useAxiosPost('/updateFramework');
 
-  const { data: frameworkData } = useSWR(
+  const { data: defaultFrameworkData } = useSWR(
     {
       url: 'http://localhost:8080/api/getDefaultFramework',
       args: { sector: 'Sustainable Water & Wastewater management' },
+    },
+    fetcher,
+  );
+
+  const { data: frameworkData } = useSWR(
+    {
+      url: 'http://localhost:8080/api/getFramework',
+      args: { id: id },
     },
     fetcher,
   );
@@ -82,24 +90,48 @@ export default function FrameworkEntriesTable() {
 
   const handleSelectedEntry = (entry: FrameworkEntry) => {
     setSelectedEntries((prev) => {
-      if (prev.includes(entry)) {
-        return prev.filter((e) => e !== entry);
+      const index = prev.findIndex((e) => {
+        return (
+          e.sector === entry.sector &&
+          e.subSector === entry.subSector &&
+          e.projectType === entry.projectType &&
+          e.projectSpecifics === entry.projectSpecifics &&
+          e.dataPoints === entry.dataPoints
+        );
+      });
+
+      if (index !== -1) {
+        console.log('removing entry');
+        return [...prev.slice(0, index), ...prev.slice(index + 1)];
       }
       return [...prev, entry];
     });
   };
 
   useEffect(() => {
-    if (data && data.success && data.id) {
-      router.push(`/assessment/framework/${data.id}`);
+    if (data && data._id) {
+      resetFrameworkEntries();
+      router.push(`/assessment/framework/${data._id}`);
     }
   }, [data]);
 
   useEffect(() => {
-    if (frameworkData && frameworkData.length > 0) {
-      frameworkData.forEach((element: any) => {
+    if (defaultFrameworkData && defaultFrameworkData.length > 0) {
+      resetFrameworkEntries();
+      defaultFrameworkData.forEach((element: any) => {
         addFrameworkEntry(element);
       });
+    }
+  }, [defaultFrameworkData]);
+
+  useEffect(() => {
+    if (frameworkData && frameworkData.fields.length > 0) {
+      frameworkData.fields.forEach((element: any) => {
+        if (element.isCustomField) {
+          addFrameworkEntry(element);
+        }
+      });
+      setSelectedEntries(frameworkData.fields);
     }
   }, [frameworkData]);
 
@@ -131,7 +163,16 @@ export default function FrameworkEntriesTable() {
           </TableHeader>
           <TableBody>
             {frameworkEntries.map((entry) => {
-              const isSelected = selectedEntries.includes(entry);
+              const isSelected =
+                selectedEntries.findIndex((e) => {
+                  return (
+                    e.sector === entry.sector &&
+                    e.subSector === entry.subSector &&
+                    e.projectType === entry.projectType &&
+                    e.projectSpecifics === entry.projectSpecifics &&
+                    e.dataPoints === entry.dataPoints
+                  );
+                }) !== -1;
               return (
                 <TableRow
                   key={entry.id}
@@ -165,6 +206,7 @@ export default function FrameworkEntriesTable() {
                 </TableRow>
               );
             })}
+
             <TableRow className="bg-gray-100">
               <TableCell className="text-center align-top text-asset-dark">
                 Sustainable Water & Wastewater Management
@@ -268,6 +310,7 @@ export default function FrameworkEntriesTable() {
           className="w-3/12 mt-8"
           onClick={() => {
             execute({
+              id: id,
               name: 'Kunal test',
               organization: '67bc9be92d76bae3d4c40efc',
               branch: '67bc9c452d76bae3d4c40eff',
@@ -276,7 +319,7 @@ export default function FrameworkEntriesTable() {
             });
           }}
         >
-          Create FrameWork
+          Save
         </Button>
       )}
     </div>
