@@ -41,7 +41,7 @@ const fetcher = ({ url, args }: any) =>
     return await r.json();
   });
 
-export default function FrameworkEntriesTable() {
+export default function FrameworkEntriesTable({ details }: any) {
   const router = useRouter();
   const { frameworkEntries, addFrameworkEntry, resetFrameworkEntries } =
     useSectorStore();
@@ -102,6 +102,8 @@ export default function FrameworkEntriesTable() {
       });
     }
   }, [frameworkData]);
+
+  console.log('details', details);
 
   return (
     <div>
@@ -268,10 +270,10 @@ export default function FrameworkEntriesTable() {
           className="w-3/12 mt-8"
           onClick={() => {
             execute({
-              name: 'Kunal test',
+              name: details.name,
               organization: '67bc9be92d76bae3d4c40efc',
               branch: '67bc9c452d76bae3d4c40eff',
-              description: 'This is test',
+              description: details.description,
               fields: selectedEntries,
             });
           }}

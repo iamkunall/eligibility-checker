@@ -12,7 +12,9 @@ export function SectorCard({ setNumber, isActive = false }: SectorCardProps) {
     >
       <div className="space-y-2">
         <p className="text-sm text-asset-medium">Set {setNumber}:</p>
-        <p className="text-asset-dark">Selected Sector Name</p>
+        <p className="text-asset-dark">
+          Sustainable Water & Wastewater management{' '}
+        </p>
       </div>
     </div>
   );

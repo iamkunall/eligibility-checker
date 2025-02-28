@@ -15,7 +15,7 @@ import {
 export default function FrameWorkDetailsForm({
   handleSubmit,
 }: {
-  handleSubmit: () => void;
+  handleSubmit: (data: any) => void;
 }) {
   const { form, isSubmitting, onSubmit } = useFrameworkForm();
 
@@ -24,7 +24,7 @@ export default function FrameWorkDetailsForm({
       <form
         onSubmit={form.handleSubmit((data: any) => {
           onSubmit(data);
-          handleSubmit();
+          handleSubmit(data);
         })}
         className="max-w-2xl"
       >

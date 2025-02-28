@@ -6,6 +6,7 @@ import FrameWorkSectorSelectionForm from '@/components/forms/FrameWorkSectorSele
 
 export default function CreateFrameworkPage() {
   const [activeStep, setActiveStep] = useState(1);
+  const [frameWorkDetails, setFrameWorkDetails] = useState({});
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -20,9 +21,16 @@ export default function CreateFrameworkPage() {
             </div>
           </div>
           {activeStep === 1 && (
-            <FrameWorkDetailsForm handleSubmit={() => setActiveStep(2)} />
+            <FrameWorkDetailsForm
+              handleSubmit={(data) => {
+                setFrameWorkDetails(data);
+                setActiveStep(2);
+              }}
+            />
           )}
-          {activeStep === 2 && <FrameWorkSectorSelectionForm />}
+          {activeStep === 2 && (
+            <FrameWorkSectorSelectionForm details={frameWorkDetails} />
+          )}
         </div>
       </main>
     </div>
