@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { useRouter } from 'next/navigation';
+
 import {
   Table,
   TableBody,
@@ -19,7 +22,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import useSWR from 'swr';
 
 import { useSectorStore } from '@/store/use-sector-store';
 import type { FrameworkEntry } from '@/types/framework-entry';
@@ -32,11 +34,15 @@ const fetcher = ({ url, args }: any) =>
     body: JSON.stringify({
       ...args,
     }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   }).then(async (r) => {
     return await r.json();
   });
 
 export default function FrameworkEntriesTable() {
+  const router = useRouter();
   const { frameworkEntries, addFrameworkEntry } = useSectorStore();
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [selectedEntries, setSelectedEntries] = useState<FrameworkEntry[]>([]);
@@ -83,8 +89,8 @@ export default function FrameworkEntriesTable() {
   };
 
   useEffect(() => {
-    if (data && data.success && window) {
-      window.alert(data.message);
+    if (data && data.success && data.id) {
+      router.push(`/assessment/framework/${data.id}`);
     }
   }, [data]);
 
@@ -105,16 +111,16 @@ export default function FrameworkEntriesTable() {
               <TableHead className="w-[200px] py-4 text-center font-medium text-asset-dark">
                 Sector
               </TableHead>
-              <TableHead className="w-[200px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[100px] text-center font-medium text-asset-dark">
                 Sub-Sector
               </TableHead>
-              <TableHead className="w-[200px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[150px] text-center font-medium text-asset-dark">
                 Project Type
               </TableHead>
-              <TableHead className="w-[380px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[350px] text-center font-medium text-asset-dark">
                 Project Specifics
               </TableHead>
-              <TableHead className="w-[150px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[200px] text-center font-medium text-asset-dark">
                 Data Points
               </TableHead>
               <TableHead className="w-[20px] bg-asset-teal text-center font-medium text-white">
