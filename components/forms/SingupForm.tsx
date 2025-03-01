@@ -5,6 +5,7 @@ import { Mail, Lock, Check, User2, Building } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 
@@ -26,6 +27,7 @@ import useAxiosPost from '@/hooks/useAxiosPost';
 import useAuthStore from '@/store/auth-store';
 
 const registerSchema = z.object({
+  name: z.string().min(1, 'Please enter your name'),
   email: z.string().email('Please enter a valid email'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   role: z.string().min(1, 'Please select a role'),
@@ -40,46 +42,28 @@ const roles = [
     value: 'Admin',
     label: 'Admin',
   },
-  {
-    value: 'Regional Manager',
-    label: 'Regional Manager',
-  },
+  // {
+  //   value: 'Regional Manager',
+  //   label: 'Regional Manager',
+  // },
 ];
 
 const organizations = [
   {
-    value: '343243434324',
-    label: 'Organization A',
+    value: '67bc9be92d76bae3d4c40efc',
+    label: 'Organization One',
     branches: [
       {
-        value: '4324324324321',
-        label: 'Organization A Branch 1',
+        value: '67bc9c452d76bae3d4c40eff',
+        label: 'Branch 1',
       },
       {
-        value: '4324324324322',
-        label: 'Organization A Branch B',
+        value: '67bc9c662d76bae3d4c40f02',
+        label: 'Branch B',
       },
       {
-        value: '4324324324323',
-        label: 'Organization A Branch C',
-      },
-    ],
-  },
-  {
-    value: '432432432432',
-    label: 'Organization B',
-    branches: [
-      {
-        value: '4324324324321',
-        label: 'Organization B Branch 1',
-      },
-      {
-        value: '4324324324322',
-        label: 'Organization B Branch B',
-      },
-      {
-        value: '4324324324323',
-        label: 'Organization B Branch C',
+        value: '67bc9c6a2d76bae3d4c40f05',
+        label: 'Branch C',
       },
     ],
   },
@@ -97,7 +81,9 @@ export default function SignupForm() {
   const { data, error, isLoading, execute }: any =
     useAxiosPost('auth/register');
 
-  const { token, user, login }: any = useAuthStore();
+  const router = useRouter();
+
+  const { login }: any = useAuthStore();
 
   const [roleDropDownOpen, setRoleDropDownOpen] = useState(false);
   const [role, setRole] = useState('');
@@ -112,6 +98,7 @@ export default function SignupForm() {
 
   const onSubmit = async (data: RegisterFormValues) => {
     await execute({
+      name: data.name,
       email: data.email,
       password: data.password,
       role,
@@ -127,10 +114,9 @@ export default function SignupForm() {
   }, [error]);
 
   useEffect(() => {
-    if (data) {
-      // Handle successful response
-      console.log('data', data);
+    if (data && data.user.id) {
       login(data);
+      router.push('/dashboard');
     }
   }, [data]);
 
@@ -150,6 +136,20 @@ export default function SignupForm() {
   return (
     <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#ace5ea] to-[#dee9b5] p-8 mx-16">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <div className="relative">
+          <div className="flex items-center">
+            <User2 className="absolute  h-6 w-6  text-[#40495E]" />
+            <input
+              type="name"
+              placeholder="Enter your name"
+              {...register('name')}
+              className="w-full  border-0  py-4 pl-8 pr-4 text-[#212A3A] placeholder:text-[#40495E] focus:outline-none focus:ring-none focus:ring-[#40495E] bg-transparent border-b-2 border-[#40495E]"
+            />
+          </div>
+          {errors.name && (
+            <p className="mt-2 text-sm text-red-500">{errors.name.message}</p>
+          )}
+        </div>
         <div className="relative">
           <div className="flex items-center">
             <Mail className="absolute  h-6 w-6  text-[#40495E]" />

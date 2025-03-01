@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
+import { useRouter } from 'next/navigation';
+
 import useAxiosPost from '@/hooks/useAxiosPost';
 import useAuthStore from '@/store/auth-store';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -31,6 +33,7 @@ export default function LoginForm() {
       rememberMe: false,
     },
   });
+  const router = useRouter();
   const { data, error, isLoading, execute }: any = useAxiosPost('auth/login');
   const { token, user, login }: any = useAuthStore();
 
@@ -48,10 +51,10 @@ export default function LoginForm() {
   }, [error]);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.user && data.user.id) {
       // Handle successful response
-      console.log('data', data);
       login(data);
+      router.push('/dashboard');
     }
   }, [data]);
 
