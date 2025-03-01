@@ -24,7 +24,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link
-            href="/assessment"
+            href="/assessment/saved-frameworks"
             className=" bg-asset-mint  shadow-lg w-7/12 text-center p-6 rounded-lg mb-2"
           >
             <h2 className="text-2xl font-semibold text-asset-dark">

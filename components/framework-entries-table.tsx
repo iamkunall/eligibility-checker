@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/navigation';
 
+import useAuthStore from '@/store/auth-store';
+
 import {
   Table,
   TableBody,
@@ -43,12 +45,13 @@ const fetcher = ({ url, args }: any) =>
 
 export default function FrameworkEntriesTable({ details }: any) {
   const router = useRouter();
-  const { frameworkEntries, addFrameworkEntry, resetFrameworkEntries } =
-    useSectorStore();
+  const { frameworkEntries, addFrameworkEntry } = useSectorStore();
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [selectedEntries, setSelectedEntries] = useState<FrameworkEntry[]>([]);
   const { data, error, isLoading, execute }: any =
     useAxiosPost('/createFramework');
+
+  const { user }: any = useAuthStore();
 
   const { data: frameworkData } = useSWR(
     {
@@ -103,7 +106,7 @@ export default function FrameworkEntriesTable({ details }: any) {
     }
   }, [frameworkData]);
 
-  console.log('details', details);
+  console.log('details', user);
 
   return (
     <div>
@@ -271,8 +274,9 @@ export default function FrameworkEntriesTable({ details }: any) {
           onClick={() => {
             execute({
               name: details.name,
-              organization: '67bc9be92d76bae3d4c40efc',
-              branch: '67bc9c452d76bae3d4c40eff',
+              user: user.id,
+              organization: user && user.organizations[0],
+              branch: user.branches && user.branches[0],
               description: details.description,
               fields: selectedEntries,
             });
