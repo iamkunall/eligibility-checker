@@ -1,4 +1,6 @@
 import useSWR from 'swr';
 
 export const fetcher = (url: string) =>
-  fetch(`http://localhost:8080/api/${url}`).then((res) => res.json());
+  fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${url}`).then((res) =>
+    res.json(),
+  );

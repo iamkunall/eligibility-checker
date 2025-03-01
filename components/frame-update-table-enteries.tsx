@@ -52,7 +52,7 @@ export default function FrameworkUpdateEntriesTable({ id }: any) {
 
   const { data: defaultFrameworkData } = useSWR(
     {
-      url: 'http://localhost:8080/api/getDefaultFramework',
+      url: `${process.env.NEXT_PUBLIC_API_URL}/api/getDefaultFramework`,
       args: { sector: 'Sustainable Water & Wastewater management' },
     },
     fetcher,
@@ -60,7 +60,7 @@ export default function FrameworkUpdateEntriesTable({ id }: any) {
 
   const { data: frameworkData } = useSWR(
     {
-      url: 'http://localhost:8080/api/getFramework',
+      url: `${process.env.NEXT_PUBLIC_API_URL}/api/getFramework`,
       args: { id: id },
     },
     fetcher,

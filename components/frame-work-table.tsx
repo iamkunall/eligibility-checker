@@ -29,7 +29,7 @@ const fetcher = ({ url, args }: any) =>
 export default function FrameWorkTable({ id }: any) {
   const { data: frameworkData, isLoading } = useSWR(
     {
-      url: 'http://localhost:8080/api/getFramework',
+      url: `${process.env.NEXT_PUBLIC_API_URL}/api/getFramework`,
       args: { id: id },
     },
     fetcher,

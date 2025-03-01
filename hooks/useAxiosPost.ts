@@ -10,7 +10,7 @@ const useAxiosPost = (url: string) => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/${url}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/${url}`,
         inputData,
       );
       console.log('response', response.data);
