@@ -2,7 +2,7 @@ import React from 'react';
 
 import FrameworksTable from '@/components/all-frameworks-table';
 
-export default function page({ params }: any) {
+export default function Page() {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1">

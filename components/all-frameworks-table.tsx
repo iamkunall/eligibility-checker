@@ -32,7 +32,7 @@ export default function FrameworksTable() {
   const { data } = useSWR(
     {
       url: 'http://localhost:8080/api/getFrameworkByUserId',
-      args: { userId: user.id },
+      args: { userId: user && user.id },
     },
     fetcher,
   );
