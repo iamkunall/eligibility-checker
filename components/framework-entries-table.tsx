@@ -274,9 +274,9 @@ export default function FrameworkEntriesTable({ details }: any) {
           onClick={() => {
             execute({
               name: details.name,
-              user: user.id,
+              user: user?.id,
               organization: user && user.organizations[0],
-              branch: user.branches && user.branches[0],
+              branch: user?.branches && user.branches[0],
               description: details.description,
               fields: selectedEntries,
             });
