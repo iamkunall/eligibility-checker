@@ -103,7 +103,7 @@ export default function FrameWorkTable({ id }: any) {
             >
               Go Back to Home
             </Link>
-            {user.role === 'Admin' && (
+            {user?.role === 'Admin' && (
               <Link
                 href={`/assessment/update-framework/${id}`}
                 className="w-4/12 rounded-md bg-[#dee9b5] py-3 text-center text-[#212A3A] hover:bg-[#dee9b5]/90"

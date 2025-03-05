@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 
 const fetcher = ({ url, args }: any) =>
   fetch(url, {
@@ -27,7 +28,10 @@ const fetcher = ({ url, args }: any) =>
     return await r.json();
   });
 
-export default function FrameworksTable() {
+export default function FrameworksTable({
+  createApplication,
+  handleCreateApplication,
+}: any) {
   const { user }: any = useAuthStore();
 
   const { data } = useSWR(
@@ -95,9 +99,21 @@ export default function FrameworksTable() {
                       {new Date(entry.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="text-center align-top text-asset-dark">
-                      <Link href={`/assessment/framework/${entry._id}`}>
-                        View
-                      </Link>
+                      {!createApplication && (
+                        <Link href={`/assessment/framework/${entry._id}`}>
+                          View
+                        </Link>
+                      )}
+                      {createApplication && (
+                        <Button
+                          onClick={() => {
+                            handleCreateApplication(entry._id);
+                          }}
+                          className="bg-asset-mint hover:bg-asset-mint/50 p-2 text-black"
+                        >
+                          Create Application
+                        </Button>
+                      )}
                     </TableCell>
                   </TableRow>
                 );

@@ -48,7 +48,7 @@ export default function RegionalManagerCards() {
   const dashboardCards: DashboardCard[] = [
     {
       title: 'CREATE NEW APPLICATION',
-      href: '/assessment',
+      href: '/rm-dashboard/create-application',
       icon: PlusCircle,
       // description: "Build new assessment frameworks",
     },
@@ -80,7 +80,9 @@ export default function RegionalManagerCards() {
             <Sprout className="h-8 w-8 text-asset-dark" />
           </div>
           <h1 className="text-5xl font-semibold text-asset-dark">Dashboard</h1>
-          <p className="text-asset-medium leading-relaxed">Admin Portal</p>
+          <p className="text-asset-medium leading-relaxed">
+            Regional Manager Portal
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
