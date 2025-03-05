@@ -55,7 +55,7 @@ export default function CreateRegionalManagerForm({
   const { user }: any = useAuthStore();
 
   const { trigger, isMutating } = useSWRMutation(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/regional-managers`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/create-regional-managers`,
     handleAuthRequest,
   );
 
