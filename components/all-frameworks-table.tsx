@@ -95,19 +95,9 @@ export default function FrameworksTable() {
                       {new Date(entry.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="text-center align-top text-asset-dark">
-                      {user.role === 'Admin' && (
-                        <Link href={`/assessment/framework/${entry._id}`}>
-                          View
-                        </Link>
-                      )}
-                      {user.role === 'Regional Manager' && (
-                        <Link
-                          className="bg-asset-mint hover:bg-asset-mint/50 py-2 px-2 rounded-md"
-                          href={`/assessment/framework/${entry._id}`}
-                        >
-                          Create Application
-                        </Link>
-                      )}
+                      <Link href={`/assessment/framework/${entry._id}`}>
+                        View
+                      </Link>
                     </TableCell>
                   </TableRow>
                 );

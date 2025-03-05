@@ -4,6 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 
+import useAuthStore from '@/store/auth-store';
+
 import {
   Table,
   TableBody,
@@ -27,6 +29,8 @@ const fetcher = ({ url, args }: any) =>
   });
 
 export default function FrameWorkTable({ id }: any) {
+  const { user }: any = useAuthStore();
+
   const { data: frameworkData, isLoading } = useSWR(
     {
       url: `${process.env.NEXT_PUBLIC_API_URL}/api/getFramework`,
@@ -99,12 +103,14 @@ export default function FrameWorkTable({ id }: any) {
             >
               Go Back to Home
             </Link>
-            <Link
-              href={`/assessment/update-framework/${id}`}
-              className="w-4/12 rounded-md bg-[#dee9b5] py-3 text-center text-[#212A3A] hover:bg-[#dee9b5]/90"
-            >
-              Edit Framework
-            </Link>
+            {user.role === 'Admin' && (
+              <Link
+                href={`/assessment/update-framework/${id}`}
+                className="w-4/12 rounded-md bg-[#dee9b5] py-3 text-center text-[#212A3A] hover:bg-[#dee9b5]/90"
+              >
+                Edit Framework
+              </Link>
+            )}
           </div>
         </div>
       )}
