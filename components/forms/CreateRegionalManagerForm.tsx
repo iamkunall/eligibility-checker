@@ -64,25 +64,14 @@ export default function CreateRegionalManagerForm({
     try {
       const payload = {
         ...formData,
-        branches: user.branches
-          ? user.branches.map((branch: { _id: string }) => branch._id)
-          : [],
-        organizations: user.organizations
-          ? user.organizations.map((org: { _id: string }) => org._id)
-          : [],
+        branches: [user.branches[0]],
+        organizations: [user.organizations[0]],
       };
 
       await trigger(payload);
-
-      //FIXME: Showing success toast but not working
-
-      toast({
-        title: 'Success',
-        description: `${formData?.name} has been added as a Regional Manager.`,
-      });
+      router.refresh();
 
       onClose();
-      router.push('/dashboard/regional-manager');
     } catch (error) {
       console.error('Failed to create Regional Manager:', error);
       toast({

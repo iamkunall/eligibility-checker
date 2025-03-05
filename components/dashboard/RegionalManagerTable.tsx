@@ -1,9 +1,6 @@
 'use client';
 
-import Link from 'next/link';
 import useSWR from 'swr';
-
-import useAuthStore from '@/store/auth-store';
 
 import {
   Table,
@@ -43,10 +40,13 @@ export default function FrameworksTable() {
 
   return (
     <div>
-      <div className="rounded-md mt-20">
+      <div className="rounded-md mt-8">
         <Table>
           <TableHeader className="bg-asset-mint/50">
             <TableRow>
+              <TableHead className="py-4 text-center font-medium text-asset-dark">
+                S.No
+              </TableHead>
               <TableHead className="py-4 text-center font-medium text-asset-dark">
                 Id
               </TableHead>
@@ -66,8 +66,11 @@ export default function FrameworksTable() {
           </TableHeader>
           <TableBody>
             {data.length > 0 ? (
-              data.map((entry: any) => (
+              data.map((entry: any, index: number) => (
                 <TableRow key={entry._id}>
+                  <TableCell className="text-center align-top text-asset-dark">
+                    {index + 1}
+                  </TableCell>
                   <TableCell className="text-center align-top text-asset-dark">
                     {entry._id}
                   </TableCell>

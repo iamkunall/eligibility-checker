@@ -55,6 +55,8 @@ export default function LoginForm() {
       // Handle successful response
       login(data);
 
+      console.log('data', data);
+
       // Redirect based on user role
       if (data.user.role === 'Admin' || data.user.role === 'Super Admin') {
         router.push('/dashboard');

@@ -115,6 +115,8 @@ export default function SignupForm() {
 
   useEffect(() => {
     if (data && data.user.id) {
+      console.log('data', data);
+
       login(data);
       router.push('/dashboard');
     }
@@ -130,8 +132,6 @@ export default function SignupForm() {
       }
     }
   }, [organization]);
-
-  console.log('errors', errors);
 
   return (
     <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#ace5ea] to-[#dee9b5] p-8 mx-16">
