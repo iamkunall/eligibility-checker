@@ -13,7 +13,6 @@ const useAxiosPost = (url: string) => {
         `${process.env.NEXT_PUBLIC_API_URL}/api/${url}`,
         inputData,
       );
-      console.log('response', response.data);
       setData(response.data);
     } catch (error: any) {
       setError(error.message);

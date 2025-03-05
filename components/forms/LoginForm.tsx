@@ -55,8 +55,6 @@ export default function LoginForm() {
       // Handle successful response
       login(data);
 
-      console.log('data', data);
-
       // Redirect based on user role
       if (data.user.role === 'Admin' || data.user.role === 'Super Admin') {
         router.push('/dashboard');
@@ -69,12 +67,6 @@ export default function LoginForm() {
   }, [data]);
 
   const rememberMe = watch('rememberMe');
-
-  console.log('isLoading', {
-    isLoading,
-    token,
-    user,
-  });
 
   return (
     <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#ace5ea] to-[#dee9b5] p-8 mx-16">

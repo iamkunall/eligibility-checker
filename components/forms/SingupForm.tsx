@@ -115,8 +115,6 @@ export default function SignupForm() {
 
   useEffect(() => {
     if (data && data.user.id) {
-      console.log('data', data);
-
       login(data);
       router.push('/dashboard');
     }

@@ -2,6 +2,8 @@
 
 import useSWR from 'swr';
 
+import useAuthStore from '@/store/auth-store';
+
 import {
   Table,
   TableBody,
@@ -12,10 +14,23 @@ import {
 } from '@/components/ui/table';
 
 // ✅ Improved fetcher function
-const fetcher = async (url: string) => {
+const fetcher = async ({ url, args }: any) => {
+  const obj: any = {};
+
+  if (args?.organization) {
+    obj.organization = args.organization;
+  }
+
+  if (args?.branch) {
+    obj.branch = args.branch;
+  }
+
   try {
     const res = await fetch(url, {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify({
+        ...obj,
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -31,8 +46,13 @@ const fetcher = async (url: string) => {
 };
 
 export default function FrameworksTable() {
+  const { user }: any = useAuthStore();
+
   const { data = [], error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/regional-managers`,
+    {
+      url: `${process.env.NEXT_PUBLIC_API_URL}/api/auth/regional-managers`,
+      args: { organization: user?.organizations[0], branch: user?.branches[0] },
+    },
     fetcher,
   );
 

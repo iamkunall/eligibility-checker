@@ -38,8 +38,6 @@ export default function FrameworksTable() {
     fetcher,
   );
 
-  console.log(data);
-
   return (
     <div>
       <div className="rounded-md mt-20">

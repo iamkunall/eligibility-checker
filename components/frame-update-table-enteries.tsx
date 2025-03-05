@@ -101,7 +101,6 @@ export default function FrameworkUpdateEntriesTable({ id }: any) {
       });
 
       if (index !== -1) {
-        console.log('removing entry');
         return [...prev.slice(0, index), ...prev.slice(index + 1)];
       }
       return [...prev, entry];
