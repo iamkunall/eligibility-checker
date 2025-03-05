@@ -2,10 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ExternalLink, Moon, User2 } from 'lucide-react';
 
 import useAuthStore from '@/store/auth-store';
-
+import { useRouter } from 'next/navigation';
 import {
   Popover,
   PopoverContent,
@@ -15,6 +14,12 @@ import { Separator } from '@/components/ui/separator';
 
 export function SiteHeader() {
   const { user, logOut }: any = useAuthStore();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logOut();
+    router.push('/');
+  };
 
   return (
     <header className="w-full bg-white py-6">
@@ -80,7 +85,7 @@ export function SiteHeader() {
                 <Separator className="bg-zinc-800" />
 
                 <button
-                  onClick={() => logOut()}
+                  onClick={handleLogout}
                   className="w-full text-left px-4 py-3 hover:bg-zinc-800 transition-colors text-red-400"
                 >
                   Log Out
