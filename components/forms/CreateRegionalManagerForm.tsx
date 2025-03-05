@@ -64,12 +64,15 @@ export default function CreateRegionalManagerForm({
     try {
       const payload = {
         ...formData,
-        branches: [user.branches[0]],
-        organizations: [user.organizations[0]],
+        branches: [user.branches[0]._id],
+        organizations: [user.organizations[0]._id],
       };
 
       await trigger(payload);
-      router.refresh();
+
+      if (window) {
+        window.location.reload();
+      }
 
       onClose();
     } catch (error) {

@@ -106,6 +106,8 @@ export default function FrameworkEntriesTable({ details }: any) {
     }
   }, [frameworkData]);
 
+  console.log(user);
+
   return (
     <div>
       <div className="rounded-md mt-20">
@@ -273,8 +275,10 @@ export default function FrameworkEntriesTable({ details }: any) {
             execute({
               name: details.name,
               user: user?.id,
-              organization: user && user.organizations[0],
-              branch: user?.branches && user.branches[0],
+              organization:
+                user && user.organizations[0] && user.organizations[0]._id,
+              branch:
+                user?.branches && user.branches[0] && user.branches[0]._id,
               description: details.description,
               fields: selectedEntries,
             });
