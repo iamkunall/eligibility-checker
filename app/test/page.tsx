@@ -2,21 +2,12 @@
 
 import { useToast } from '@/hooks/use-toast';
 import React from 'react';
+import RegionalManagerCards from '@/components/dashboard/RegionalManagerCards';
 
 const Page: React.FC = () => {
-  const { toast } = useToast();
-
-  const handleClick = () => {
-    toast({
-      title: 'Hello World',
-      description: 'This toast will disappear after 10 seconds',
-      duration: 10000,
-    });
-  };
-
   return (
     <div>
-      <button onClick={handleClick}>Show Toast</button>
+      <RegionalManagerCards />
     </div>
   );
 };

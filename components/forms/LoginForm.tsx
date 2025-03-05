@@ -54,7 +54,15 @@ export default function LoginForm() {
     if (data && data.user && data.user.id) {
       // Handle successful response
       login(data);
-      router.push('/dashboard');
+
+      // Redirect based on user role
+      if (data.user.role === 'Admin' || data.user.role === 'Super Admin') {
+        router.push('/dashboard');
+      } else if (data.user.role === 'Regional Manager') {
+        router.push('/test');
+      } else {
+        router.push('/'); // Default redirection if role is unknown
+      }
     }
   }, [data]);
 
