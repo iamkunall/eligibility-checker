@@ -59,7 +59,7 @@ export default function LoginForm() {
       if (data.user.role === 'Admin' || data.user.role === 'Super Admin') {
         router.push('/dashboard');
       } else if (data.user.role === 'Regional Manager') {
-        router.push('/test');
+        router.push('/rm-dashboard');
       } else {
         router.push('/'); // Default redirection if role is unknown
       }
