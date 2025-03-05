@@ -74,23 +74,24 @@ export default function CreateRegionalManagerForm({
 
       await trigger(payload);
 
-       //FIXME: Showing success toast but not working
+      //FIXME: Showing success toast but not working
 
-       toast({
-        title: "Success",
+      toast({
+        title: 'Success',
         description: `${formData?.name} has been added as a Regional Manager.`,
-      })
+      });
 
       onClose();
       router.push('/dashboard/regional-manager');
-
     } catch (error) {
       console.error('Failed to create Regional Manager:', error);
       toast({
-        title: "Error",
+        title: 'Error',
         description:
-          error instanceof Error ? error.message : "Failed to create Regional Manager. Please try again later.",
-      })
+          error instanceof Error
+            ? error.message
+            : 'Failed to create Regional Manager. Please try again later.',
+      });
     }
   };
 
