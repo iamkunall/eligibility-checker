@@ -33,7 +33,11 @@ export default function FrameworksTable() {
   const { data } = useSWR(
     {
       url: `${process.env.NEXT_PUBLIC_API_URL}/api/getFrameworkByUserId`,
-      args: { userId: user && user.id },
+      args: {
+        userId: user && user.id,
+        organization: user?.organizations[0]._id,
+        branch: user?.branches[0]._id,
+      },
     },
     fetcher,
   );
@@ -44,6 +48,9 @@ export default function FrameworksTable() {
         <Table>
           <TableHeader className="bg-asset-mint/50">
             <TableRow>
+              <TableHead className=" py-4 text-center font-medium text-asset-dark">
+                S.No
+              </TableHead>
               <TableHead className=" py-4 text-center font-medium text-asset-dark">
                 Id
               </TableHead>
@@ -66,9 +73,12 @@ export default function FrameworksTable() {
           </TableHeader>
           <TableBody>
             {data &&
-              data.map((entry: any) => {
+              data.map((entry: any, index: number) => {
                 return (
                   <TableRow key={entry._id}>
+                    <TableCell className="text-center align-top text-asset-dark">
+                      {index + 1}
+                    </TableCell>
                     <TableCell className="text-center align-top text-asset-dark">
                       {entry._id}
                     </TableCell>
@@ -85,9 +95,19 @@ export default function FrameworksTable() {
                       {new Date(entry.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="text-center align-top text-asset-dark">
-                      <Link href={`/assessment/framework/${entry._id}`}>
-                        View
-                      </Link>
+                      {user.role === 'Admin' && (
+                        <Link href={`/assessment/framework/${entry._id}`}>
+                          View
+                        </Link>
+                      )}
+                      {user.role === 'Regional Manager' && (
+                        <Link
+                          className="bg-asset-mint hover:bg-asset-mint/50 py-2 px-2 rounded-md"
+                          href={`/assessment/framework/${entry._id}`}
+                        >
+                          Create Application
+                        </Link>
+                      )}
                     </TableCell>
                   </TableRow>
                 );

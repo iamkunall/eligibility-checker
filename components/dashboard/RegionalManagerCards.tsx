@@ -60,7 +60,7 @@ export default function RegionalManagerCards() {
     },
     {
       title: 'VIEW FRAMEWORK',
-      href: '/dashboard',
+      href: '/assessment/saved-frameworks',
       icon: Users,
       // description: "Relationship manager settings",
     },

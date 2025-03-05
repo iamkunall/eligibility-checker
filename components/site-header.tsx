@@ -36,6 +36,14 @@ export function SiteHeader() {
               Dashboard
             </Link>
           )}
+          {user && user.role === 'Regional Manager' && (
+            <Link
+              href="/rm-dashboard"
+              className="text-asset-medium hover:text-asset-dark"
+            >
+              Dashboard
+            </Link>
+          )}
 
           <Link
             href="/features"
