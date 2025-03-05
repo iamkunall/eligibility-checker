@@ -1,7 +1,14 @@
+'use client';
+
+import { useState } from 'react';
+import CreateRegionalManagerForm from '@/components/forms/CreateRegionalManagerForm';
 import { Sprout } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function DashboardPage() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex min-h-screen flex-col mt-28">
       <div className="container grid gap-16 pt-20 md:grid-cols-2">
@@ -32,14 +39,19 @@ export default function DashboardPage() {
             </h2>
           </Link>
 
-          <Link
-            href="/dashboard/regional-manager"
-            className=" bg-asset-mint  shadow-lg w-7/12 text-center p-6 rounded-lg mb-2"
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="text-2xl font-semibold text-asset-dark !bg-asset-mint  shadow-lg w-7/12 text-center p-6 rounded-lg mb-2"
           >
-            <h2 className="text-2xl font-semibold text-asset-dark">
-              Manage RM
-            </h2>
-          </Link>
+            Manage RM
+          </Button>
+
+          {isOpen && (
+            <CreateRegionalManagerForm
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+            />
+          )}
         </div>
       </div>
     </div>
