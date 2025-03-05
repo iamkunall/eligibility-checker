@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { User2 } from 'lucide-react';
+import { ExternalLink, Moon, User2 } from 'lucide-react';
 
 import useAuthStore from '@/store/auth-store';
 
@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
 
 export function SiteHeader() {
   const { user, logOut }: any = useAuthStore();
@@ -49,14 +50,41 @@ export function SiteHeader() {
           >
             Contact
           </Link>
-          {user && user.role === 'Admin' ? (
+          {user && user.role ? (
             <Popover>
-              <PopoverTrigger className="flex items-center gap-2">
-                <User2 className="  h-6 w-6 mr-2 text-[#40495E]" />
-                {user.name}
+              <PopoverTrigger className="flex items-center gap-2 rounded-full">
+                <div className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-purple-500">
+                  {user.avatar ? (
+                    <Image
+                      src={user.avatar || '/placeholder.svg'}
+                      alt={user.name}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-amber-500 text-white">
+                      {user.name?.charAt(0).toUpperCase() || 'A'}
+                    </div>
+                  )}
+                </div>
               </PopoverTrigger>
-              <PopoverContent className="w-full p-4">
-                <button onClick={() => logOut()}>Log out</button>
+              <PopoverContent className="w-64 p-0 bg-white text-black border-zinc-800">
+                <div className="p-4">
+                  <div className="font-medium text-lg">Signed in as</div>
+                  <div className="text-zinc-800">
+                    {user.email || 'admin@admin.co'}
+                  </div>
+                  <div className="text-purple-400">{user.name || 'Admin'}</div>
+                </div>
+
+                <Separator className="bg-zinc-800" />
+
+                <button
+                  onClick={() => logOut()}
+                  className="w-full text-left px-4 py-3 hover:bg-zinc-800 transition-colors text-red-400"
+                >
+                  Log Out
+                </button>
               </PopoverContent>
             </Popover>
           ) : (
