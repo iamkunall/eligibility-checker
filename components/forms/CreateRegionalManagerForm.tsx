@@ -74,7 +74,7 @@ export default function CreateRegionalManagerForm({
 
       await trigger(payload);
 
-       // Show success toast
+       //FIXME: Showing success toast but not working
 
        toast({
         title: "Success",
@@ -82,6 +82,8 @@ export default function CreateRegionalManagerForm({
       })
 
       onClose();
+      router.push('/dashboard/regional-manager');
+
     } catch (error) {
       console.error('Failed to create Regional Manager:', error);
       toast({
