@@ -54,7 +54,7 @@ export default function RegionalManagerCards() {
     },
     {
       title: 'REVIEW DRAFT APPLICATIONS',
-      href: '/assessment/saved-frameworks',
+      href: '/rm-dashboard/applications/draft',
       icon: BookOpen,
       // description: "View and edit existing frameworks",
     },
