@@ -130,8 +130,6 @@ export default function ApplicationForm({ id, createDraft }: any) {
     setDataPoints(updatedData);
   };
 
-  console.log('dataPoints', dataPoints);
-
   return (
     <div>
       <div className="my-10 text-xl">
@@ -149,6 +147,7 @@ export default function ApplicationForm({ id, createDraft }: any) {
           </RadioGroup>
         </div>
       </div>
+
       <div className="my-10 text-xl">
         <p>2. Select your Sub Sector? </p>
         <div className="mt-4 ml-4">
@@ -235,19 +234,21 @@ export default function ApplicationForm({ id, createDraft }: any) {
         );
       })}
 
-      <Button
-        onClick={() => {
-          createDraft({
-            sector: sectors[0],
-            subSector: selectedSubSector,
-            projectType: selectedProjectType,
-            projectSpecific: selectedProjectSpecifics,
-            dataPoints: dataPoints,
-          });
-        }}
-      >
-        Create Draft
-      </Button>
+      {dataPoints.length > 0 && (
+        <Button
+          onClick={() => {
+            createDraft({
+              sector: sectors[0],
+              subSector: selectedSubSector,
+              projectType: selectedProjectType,
+              projectSpecific: selectedProjectSpecifics,
+              dataPoints: dataPoints,
+            });
+          }}
+        >
+          Create Draft
+        </Button>
+      )}
     </div>
   );
 }

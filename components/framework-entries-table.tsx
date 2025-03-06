@@ -106,8 +106,6 @@ export default function FrameworkEntriesTable({ details }: any) {
     }
   }, [frameworkData]);
 
-  console.log(user);
-
   return (
     <div>
       <div className="rounded-md mt-20">
