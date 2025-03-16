@@ -67,6 +67,9 @@ export default function ApplicationsTable({}: any) {
                 Project Type
               </TableHead>
               <TableHead className=" text-center font-medium text-asset-dark">
+                Status
+              </TableHead>
+              <TableHead className=" text-center font-medium text-asset-dark">
                 Created At
               </TableHead>
               <TableHead className="text-center font-medium text-asset-dark">
@@ -94,6 +97,9 @@ export default function ApplicationsTable({}: any) {
                     </TableCell>
                     <TableCell className="text-center align-top text-asset-dark">
                       {entry?.projectType}
+                    </TableCell>
+                    <TableCell className="text-center align-top text-asset-dark">
+                      {entry?.status}
                     </TableCell>
                     <TableCell className="text-center align-top text-asset-dark">
                       {new Date(entry.createdAt).toLocaleDateString()}

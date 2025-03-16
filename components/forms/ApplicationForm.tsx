@@ -6,6 +6,12 @@ import { Label } from '@/components/ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
+const ghgDataPoint =
+  'GHG emission assessment to ensure the project doesn’t increase GHG emissions against the BAU baseline';
+
+const carbonIntensityDataPoint =
+  'The average carbon intensity of energy used to power the plant must be at or below 100g CO2/kWh over the remaining lifetime of the asset; 5 < 100';
+
 const fetcher = ({ url, args }: any) =>
   fetch(url, {
     method: 'POST',
@@ -120,10 +126,10 @@ export default function ApplicationForm({ id, createDraft }: any) {
     }
   }, [selectedProjectSpecifics]);
 
-  const handleOnChange = (e: any, ques: string) => {
+  const handleOnChange = (value: any, ques: string) => {
     const updatedData = dataPoints.map((item: any) => {
       if (item.ques === ques) {
-        item.answer = e.target.value;
+        item.answer = value;
       }
       return item;
     });
@@ -221,18 +227,69 @@ export default function ApplicationForm({ id, createDraft }: any) {
         </div>
       )}
       {dataPoints.map((item: any, index: number) => {
-        return (
-          <div className="my-10">
-            <p>
-              {5 + index}. {item.ques}?{' '}
-            </p>
-            <Input
-              className="mt-2"
-              onChange={(e) => handleOnChange(e, item.ques)}
-            />
-          </div>
-        );
+        console.log(item, ghgDataPoint);
+        if (item.ques == ghgDataPoint) {
+          return (
+            <div className="my-10">
+              <p>
+                {5 + index}. {item.ques}?{' '}
+              </p>
+              <div className="mt-2">
+                <RadioGroup>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      value="true"
+                      id="true"
+                      onClick={() => {
+                        handleOnChange('TRUE', item.ques);
+                      }}
+                    />
+                    <Label htmlFor="true">True</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      value="false"
+                      id="false"
+                      onClick={() => {
+                        handleOnChange('FALSE', item.ques);
+                      }}
+                    />
+                    <Label htmlFor="false">False</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="my-10">
+              <p>
+                {5 + index}. {item.ques}?{' '}
+              </p>
+              <Input
+                className="mt-2"
+                type={item.ques == carbonIntensityDataPoint ? 'number' : 'text'}
+                value={item.answer}
+                onChange={(e) => handleOnChange(e.target.value, item.ques)}
+              />
+            </div>
+          );
+        }
       })}
+      {dataPoints.length > 0 && (
+        <div className="my-10 text-xl">
+          {dataPoints.map((item: any, index: number) => {
+            if (item.ques === ghgDataPoint && item.answer === 'TRUE') {
+              return (
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="picture">Document</Label>
+                  <Input className="mt-2" id="picture" type="file" />
+                </div>
+              );
+            }
+          })}
+        </div>
+      )}
 
       {dataPoints.length > 0 && (
         <Button

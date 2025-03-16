@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
+
+import useAxiosPost from '@/hooks/useAxiosPost';
 
 const fetcher = ({ url, args }: any) =>
   fetch(url, {
@@ -21,8 +24,16 @@ const fetcher = ({ url, args }: any) =>
 export default function Page({ params }: any) {
   const { id } = params;
   const [report, setReport] = useState(false);
+  const router = useRouter();
 
-  const { data: application = { data: null }, isLoading } = useSWR(
+  const { data: checkEligibility, execute } =
+    useAxiosPost('/check-eligibility');
+
+  const {
+    data: application = { data: null },
+    isLoading,
+    mutate,
+  } = useSWR(
     {
       url: `${process.env.NEXT_PUBLIC_API_URL}/api/application`,
       args: { id: id },
@@ -31,6 +42,20 @@ export default function Page({ params }: any) {
   );
 
   const { data = null }: any = application;
+
+  useEffect(() => {
+    if (checkEligibility) {
+      mutate();
+    }
+  }, [checkEligibility]);
+
+  useEffect(() => {
+    if (data) {
+      if (data.status === 'ELIGIBLE' || data.status === 'NOT ELIGIBLE') {
+        setReport(true);
+      }
+    }
+  }, [data]);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -88,12 +113,22 @@ export default function Page({ params }: any) {
               <div className="w-5/12 ">
                 <div className="bg-gray-200 px-4 pt-8 pb-20 rounded-xl">
                   <p className="text-xl font-bold">Project Status</p>
-                  <p className="ml-2 mt-2">Partially Aligned</p>
+                  {data.status === 'ELIGIBLE' && (
+                    <p className="ml-2 mt-2">Fully Aligned</p>
+                  )}
+                  {data.status === 'NOT ELIGIBLE' && (
+                    <p className="ml-2 mt-2">Not Fully Aligned</p>
+                  )}
                 </div>
 
                 <div className="mt-8 bg-gray-200  px-4 py-8 rounded-xl">
                   <p className="text-xl font-bold">Project Review</p>
-                  <p className="ml-2 mt-2">Partially Aligned Explanation</p>
+                  {data.status === 'ELIGIBLE' && (
+                    <p className="ml-2 mt-2">Fully Aligned</p>
+                  )}
+                  {data.status === 'NOT ELIGIBLE' && (
+                    <p className="ml-2 mt-2">Not Fully Aligned</p>
+                  )}
                 </div>
               </div>
             )}
@@ -104,7 +139,7 @@ export default function Page({ params }: any) {
                 Edit
               </Button>
               <Button
-                onClick={() => setReport(true)}
+                onClick={() => execute({ applicationId: id })}
                 className="w-3/12 py-4 text-xl bg-asset-mint hover:bg-asset-mint/50 text-black mx-8"
               >
                 Generate Report
