@@ -109,25 +109,25 @@ export default function FrameworkEntriesTable({ details }: any) {
   return (
     <div>
       <div className="rounded-md mt-20">
-        <Table>
+        <Table className="border">
           <TableHeader className="bg-asset-mint/50">
             <TableRow>
-              <TableHead className="w-[200px] py-4 text-center font-medium text-asset-dark">
+              <TableHead className="w-[200px] py-4 text-center font-medium text-asset-dark border">
                 Sector
               </TableHead>
-              <TableHead className="w-[100px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[100px] text-center font-medium text-asset-dark border">
                 Sub-Sector
               </TableHead>
-              <TableHead className="w-[150px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[150px] text-center font-medium text-asset-dark border">
                 Project Type
               </TableHead>
-              <TableHead className="w-[350px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[350px] text-center font-medium text-asset-dark border">
                 Project Specifics
               </TableHead>
-              <TableHead className="w-[200px] text-center font-medium text-asset-dark">
+              <TableHead className="w-[200px] text-center font-medium text-asset-dark border">
                 Data Points
               </TableHead>
-              <TableHead className="w-[20px] bg-asset-teal text-center font-medium text-white">
+              <TableHead className="w-[20px] bg-asset-teal text-center font-medium text-white border">
                 Add To Framework
               </TableHead>
             </TableRow>
@@ -142,19 +142,19 @@ export default function FrameworkEntriesTable({ details }: any) {
                     isSelected ? 'bg-slate-200 hover:bg-slate-200' : ''
                   }
                 >
-                  <TableCell className="text-center align-top text-asset-dark">
+                  <TableCell className="text-center align-top text-asset-dark border">
                     {entry.sector}
                   </TableCell>
-                  <TableCell className="text-center align-top text-asset-dark">
+                  <TableCell className="text-center align-top text-asset-dark border">
                     {entry.subSector}
                   </TableCell>
-                  <TableCell className="text-center align-top text-asset-dark">
+                  <TableCell className="text-center align-top text-asset-dark border">
                     {entry.projectType}
                   </TableCell>
-                  <TableCell className="text-center align-top text-asset-dark">
+                  <TableCell className="text-center align-top text-asset-dark border">
                     {entry.projectSpecifics}
                   </TableCell>
-                  <TableCell className="text-center align-top text-asset-dark">
+                  <TableCell className="text-center align-top text-asset-dark border">
                     {entry.dataPoints}
                   </TableCell>
                   <TableCell className="text-center">
@@ -249,7 +249,7 @@ export default function FrameworkEntriesTable({ details }: any) {
                       </div>
                     </div>
                     <Button
-                      className="bg-asset-teal text-black"
+                      className="bg-asset-teal text-black hover:bg-asset-teal"
                       onClick={handleAddEntry}
                     >
                       Add Entry

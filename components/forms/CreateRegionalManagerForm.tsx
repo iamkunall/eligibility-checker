@@ -138,7 +138,7 @@ export default function CreateRegionalManagerForm({
 
           {/* Submit Button */}
           <Button
-            className="bg-asset-teal text-black"
+            className="bg-asset-teal text-black hover:bg-asset-teal"
             type="submit"
             disabled={isMutating}
           >

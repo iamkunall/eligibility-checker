@@ -49,30 +49,30 @@ export default function ApplicationsTable({}: any) {
     <div>
       <div className="rounded-md mt-20">
         <Table>
-          <TableHeader className="bg-asset-mint/50">
+          <TableHeader className="bg-asset-mint/50 border">
             <TableRow>
-              <TableHead className=" py-4 text-center font-medium text-asset-dark">
+              <TableHead className=" py-4 text-center font-medium text-asset-dark border">
                 S.No
               </TableHead>
-              <TableHead className=" py-4 text-center font-medium text-asset-dark">
+              <TableHead className=" py-4 text-center font-medium text-asset-dark border">
                 Id
               </TableHead>
-              <TableHead className=" py-4 text-center font-medium text-asset-dark">
+              <TableHead className=" py-4 text-center font-medium text-asset-dark border">
                 Sector
               </TableHead>
-              <TableHead className=" text-center font-medium text-asset-dark">
+              <TableHead className=" text-center font-medium text-asset-dark border">
                 SubSector
               </TableHead>
-              <TableHead className=" text-center font-medium text-asset-dark">
+              <TableHead className=" text-center font-medium text-asset-dark border">
                 Project Type
               </TableHead>
-              <TableHead className=" text-center font-medium text-asset-dark">
+              <TableHead className=" text-center font-medium text-asset-dark border">
                 Status
               </TableHead>
-              <TableHead className=" text-center font-medium text-asset-dark">
+              <TableHead className=" text-center font-medium text-asset-dark border">
                 Created At
               </TableHead>
-              <TableHead className="text-center font-medium text-asset-dark">
+              <TableHead className="text-center font-medium text-asset-dark border">
                 Action
               </TableHead>
             </TableRow>
@@ -83,28 +83,28 @@ export default function ApplicationsTable({}: any) {
               data.data.map((entry: any, index: number) => {
                 return (
                   <TableRow key={entry._id}>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {index + 1}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry._id}
                     </TableCell>
-                    <TableCell className="text-center w-[320px] align-top text-asset-dark">
+                    <TableCell className="text-center w-[320px] align-top text-asset-dark border">
                       {entry.sector}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry?.subSector}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry?.projectType}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry?.status}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {new Date(entry.createdAt).toLocaleDateString()}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       <Link href={`/rm-dashboard/application/${entry._id}`}>
                         View
                       </Link>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 const useAxiosPost = (url: string) => {
@@ -15,7 +15,7 @@ const useAxiosPost = (url: string) => {
       );
       setData(response.data);
     } catch (error: any) {
-      setError(error.message);
+      setError(error?.response?.data);
     } finally {
       setIsLoading(false);
     }

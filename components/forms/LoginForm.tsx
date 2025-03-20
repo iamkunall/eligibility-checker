@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import notify from '@/lib/notify';
 
 import { useRouter } from 'next/navigation';
 
@@ -35,7 +36,7 @@ export default function LoginForm() {
   });
   const router = useRouter();
   const { data, error, isLoading, execute }: any = useAxiosPost('auth/login');
-  const { token, user, login }: any = useAuthStore();
+  const { login }: any = useAuthStore();
 
   const onSubmit = async (data: LoginFormValues) => {
     await execute({
@@ -46,7 +47,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (error) {
-      console.error(error);
+      notify('Login Failed', 'error');
     }
   }, [error]);
 
@@ -54,6 +55,8 @@ export default function LoginForm() {
     if (data && data.user && data.user.id) {
       // Handle successful response
       login(data);
+
+      notify('Login Successful', 'success');
 
       // Redirect based on user role
       if (data.user.role === 'Admin' || data.user.role === 'Super Admin') {
@@ -133,7 +136,7 @@ export default function LoginForm() {
           type="submit"
           className="w-full rounded-md bg-[#212A3A] py-3 text-center text-white hover:bg-[#212A3A]/90"
         >
-          LOGIN
+          {isLoading ? 'Loading...' : 'Login'}
         </button>
 
         <Link

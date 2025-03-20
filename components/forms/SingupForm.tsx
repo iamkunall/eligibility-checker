@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
+import notify from '@/lib/notify';
 
 import { Button } from '@/components/ui/button';
 
@@ -109,12 +110,13 @@ export default function SignupForm() {
 
   useEffect(() => {
     if (error) {
-      console.error(error);
+      notify('Error in user Registration', 'error');
     }
   }, [error]);
 
   useEffect(() => {
     if (data && data.user.id) {
+      notify('User Registered Successfully', 'success');
       login(data);
       router.push('/dashboard');
     }

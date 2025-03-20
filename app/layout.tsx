@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { Toaster } from 'react-hot-toast';
+
 import './globals.css';
 
 import { SiteHeader } from '@/components/site-header';
@@ -25,6 +27,7 @@ export default function RootLayout({
               <Image src="/footer.png" alt="logo" height={156} width={156} />
             </div>
           </footer>
+          <Toaster />
         </div>
       </body>
     </html>

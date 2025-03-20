@@ -49,28 +49,28 @@ export default function FrameworksTable({
   return (
     <div>
       <div className="rounded-md mt-20">
-        <Table>
+        <Table className="border">
           <TableHeader className="bg-asset-mint/50">
-            <TableRow>
-              <TableHead className=" py-4 text-center font-medium text-asset-dark">
+            <TableRow className="border">
+              <TableHead className=" py-4 text-center font-medium text-asset-dark border">
                 S.No
               </TableHead>
-              <TableHead className=" py-4 text-center font-medium text-asset-dark">
+              <TableHead className=" py-4 text-center font-medium text-asset-dark border">
                 Id
               </TableHead>
-              <TableHead className=" py-4 text-center font-medium text-asset-dark">
+              <TableHead className=" py-4 text-center font-medium text-asset-dark border">
                 Name
               </TableHead>
-              <TableHead className=" text-center font-medium text-asset-dark">
+              <TableHead className=" text-center font-medium text-asset-dark border">
                 Organization
               </TableHead>
-              <TableHead className=" text-center font-medium text-asset-dark">
+              <TableHead className=" text-center font-medium text-asset-dark border">
                 Branch
               </TableHead>
-              <TableHead className=" text-center font-medium text-asset-dark">
+              <TableHead className=" text-center font-medium text-asset-dark border">
                 Created At
               </TableHead>
-              <TableHead className="text-center font-medium text-asset-dark">
+              <TableHead className="text-center font-medium text-asset-dark border">
                 Action
               </TableHead>
             </TableRow>
@@ -80,25 +80,25 @@ export default function FrameworksTable({
               data.map((entry: any, index: number) => {
                 return (
                   <TableRow key={entry._id}>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {index + 1}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry._id}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry.name}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry?.organization?.name}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {entry?.branch?.name ? entry?.branch?.name : 'N/A'}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {new Date(entry.createdAt).toLocaleDateString()}
                     </TableCell>
-                    <TableCell className="text-center align-top text-asset-dark">
+                    <TableCell className="text-center align-top text-asset-dark border">
                       {!createApplication && (
                         <Link href={`/assessment/framework/${entry._id}`}>
                           View
